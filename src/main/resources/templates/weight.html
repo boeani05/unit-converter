@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Unit Converter – Weight</title>
+    <link rel="stylesheet" href="/assets/styles.css"/>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="brand">
+            <h1>Unit Converter</h1>
+        </div>
+
+        <nav class="nav" aria-label="Pages">
+            <a class="pill" href="length">Length</a>
+            <a class="pill" href="weight"
+               th:attr="aria-current=${page == 'weight'} ? 'page' : null">Weight</a>
+            <a class="pill" href="temperature">Temperature</a>
+        </nav>
+    </header>
+
+    <div class="grid">
+        <section class="card" aria-label="Weight Converter">
+            <h2>Weight</h2>
+            <div th:if="${param.error != null and #lists.contains(param.error, 'toSameUnit')}" class="alert error">
+                You must select two different units.
+            </div>
+            <div th:if="${param.error != null and #lists.contains(param.error, 'invalidNumberToConvert')}"
+                 class="alert error">Please enter a valid number.
+            </div>
+            <p class="sub">Input + unit selection</p>
+
+            <form class="form" action="/weight" method="post">
+                <div class="row">
+                    <div class="field">
+                        <label for="w-value">Value</label>
+                        <input id="w-value" name="weightToConvert" type="number" inputmode="decimal" step="any"
+                               placeholder="e.g., 70"/>
+                        <div class="hint">Tip: decimal values are allowed.</div>
+                    </div>
+
+                    <div class="field">
+                        <label for="w-from">From</label>
+                        <select id="w-from" name="fromUnit">
+                            <option value="mg">Milligram (mg)</option>
+                            <option value="g">Gram (g)</option>
+                            <option value="kg" selected>Kilogram (kg)</option>
+                            <option value="t">Tonne (t)</option>
+                            <option value="oz">Ounce (oz)</option>
+                            <option value="lb">Pound (lb)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <label for="w-to">To</label>
+                        <select id="w-to" name="toUnit">
+                            <option value="mg">Milligram (mg)</option>
+                            <option value="g" selected>Gram (g)</option>
+                            <option value="kg">Kilogram (kg)</option>
+                            <option value="t">Tonne (t)</option>
+                            <option value="oz">Ounce (oz)</option>
+                            <option value="lb">Pound (lb)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="w-precision">Rounding</label>
+                        <select id="w-precision" name="precisionNumbers">
+                            <option value="0">0 decimals</option>
+                            <option value="1">1 decimal</option>
+                            <option value="2" selected>2 decimals</option>
+                            <option value="3">3 decimals</option>
+                            <option value="4">4 decimals</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="reset">Reset</button>
+                    <button class="primary" type="submit">Convert</button>
+                </div>
+            </form>
+        </section>
+
+        <aside class="card" aria-label="Weight Result">
+            <h2>Result</h2>
+
+            <div class="result" role="status" aria-live="polite">
+                <div class="k">Output</div>
+                <div class="v"
+                     th:if="${processedResult != null}"
+                     th:text="${processedResult + ' ' + toUnit}">
+                </div>
+            </div>
+
+            <hr class="sep"/>
+        </aside>
+    </div>
+
+    <div class="footer">© Unit Converter UI</div>
+</div>
+</body>
+</html>
