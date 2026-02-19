@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Unit Converter</title>
+
+    <link rel="stylesheet" href="/assets/styles.css"/>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="brand">
+            <h1>Unit Converter</h1>
+            <p>Simple UI — Length, Weight, Temperature</p>
+        </div>
+
+        <nav class="nav" aria-label="Pages">
+            <a class="pill" href="length">Length</a>
+            <a class="pill" href="weight">Weight</a>
+            <a class="pill" href="temperature">Temperature</a>
+        </nav>
+    </header>
+
+    <section class="card">
+        <h2>Welcome</h2>
+        <p class="sub">
+            Choose a converter. This project uses Spring MVC + Thymeleaf.
+            UI only — no conversion logic yet.
+        </p>
+
+        <div class="actions">
+            <a class="pill" href="length">Start with Length</a>
+            <a class="pill" href="weight">Weight</a>
+            <a class="pill" href="temperature">Temperature</a>
+        </div>
+
+        <hr class="sep"/>
+
+        <div class="hint">
+            Tip: All pages are rendered via Thymeleaf views located in
+            <code>resources/templates</code>.
+        </div>
+    </section>
+
+    <div class="footer">© Unit Converter UI — HTML + CSS only</div>
+</div>
+</body>
+</html>
