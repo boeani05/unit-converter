@@ -150,7 +150,7 @@ public class UnitsController {
         model.addAttribute("processedResult", processedResult);
         model.addAttribute("fromUnit", fromUnit);
         model.addAttribute("toUnit", toUnit.toUpperCase());
-        model.addAttribute("weightToConvert", temperatureToConvert);
+        model.addAttribute("temperatureToConvert", temperatureToConvert);
 
         return "temperature";
     }
