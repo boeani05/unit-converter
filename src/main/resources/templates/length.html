@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Unit Converter – Length</title>
+    <link rel="stylesheet" href="/assets/styles.css"/>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="brand">
+            <h1>Unit Converter</h1>
+        </div>
+
+        <nav class="nav" aria-label="Pages">
+            <a class="pill" href="length"
+               th:attr="aria-current=${page == 'length'} ? 'page' : null">Length</a>
+            <a class="pill" href="weight">Weight</a>
+            <a class="pill" href="temperature">Temperature</a>
+        </nav>
+    </header>
+
+    <div class="grid">
+        <section class="card" aria-label="Length Converter">
+            <h2>Length</h2>
+            <div th:if="${param.error != null and #lists.contains(param.error, 'toSameUnit')}" class="alert error">
+                You must select two different units.
+            </div>
+            <div th:if="${param.error != null and #lists.contains(param.error, 'invalidNumberToConvert')}"
+                 class="alert error">Please enter a valid number.
+            </div>
+            <p class="sub">Enter a value, choose units</p>
+
+            <form class="form" action="/length" method="post">
+                <div class="row">
+                    <div class="field">
+                        <label for="len-value">Value</label>
+                        <input id="len-value" name="lengthToConvert" type="number" inputmode="decimal" step="any"
+                               placeholder="e.g., 12.5"/>
+                        <div class="hint">Tip: decimal values are allowed.</div>
+                    </div>
+
+                    <div class="field">
+                        <label for="len-from">From</label>
+                        <select id="len-from" name="fromUnit">
+                            <option value="mm">Millimeter (mm)</option>
+                            <option value="cm">Centimeter (cm)</option>
+                            <option value="m" selected>Meter (m)</option>
+                            <option value="km">Kilometer (km)</option>
+                            <option value="in">Inch (in)</option>
+                            <option value="ft">Foot (ft)</option>
+                            <option value="yd">Yard (yd)</option>
+                            <option value="mi">Mile (mi)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <label for="len-to">To</label>
+                        <select id="len-to" name="toUnit">
+                            <option value="mm">Millimeter (mm)</option>
+                            <option value="cm" selected>Centimeter (cm)</option>
+                            <option value="m">Meter (m)</option>
+                            <option value="km">Kilometer (km)</option>
+                            <option value="in">Inch (in)</option>
+                            <option value="ft">Foot (ft)</option>
+                            <option value="yd">Yard (yd)</option>
+                            <option value="mi">Mile (mi)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="len-precision">Rounding</label>
+                        <select id="len-precision" name="precisionNumbers">
+                            <option value="0">0 decimals</option>
+                            <option value="1">1 decimal</option>
+                            <option value="2" selected>2 decimals</option>
+                            <option value="3">3 decimals</option>
+                            <option value="4">4 decimals</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="reset">Reset</button>
+                    <button class="primary" type="submit">Convert</button>
+                </div>
+            </form>
+        </section>
+
+        <aside class="card" aria-label="Length Result">
+            <h2>Result</h2>
+
+            <div class="result" role="status" aria-live="polite">
+                <div class="k">Output</div>
+                <div class="v"
+                     th:if="${processedResult != null}"
+                     th:text="${processedResult + ' ' + toUnit}">
+                </div>
+            </div>
+
+            <hr class="sep"/>
+        </aside>
+    </div>
+
+    <div class="footer">© Unit Converter UI</div>
+</div>
+</body>
+</html>
